@@ -1,39 +1,73 @@
 
-public class MyStack {
+public class MyStack<T> {
 	
-	private Node myFirst;
+	private Node myTop;
+	private int mySize;
 	
 	public MyStack() {
-		
+		mySize = 0;
 	}
 	
 	private class Node {
-		int item;
-		Node next;
+		T myItem;
+		Node myNext;
 	}
 	
 	public boolean isEmpty() {
-		return false;
-	}
-	
-	public void push(int item) {
+		boolean empty = true;
 		
+		if (mySize != 0) {
+			empty = false;
+		}
+		
+		return empty;
 	}
 	
-	public int pop() {
-		return 0;
+	public void push(T item) {
+		Node current = myTop;
+		
+		myTop = new Node();
+		myTop.myItem = item;
+		myTop.myNext = current;
+		
+		mySize++;
 	}
 	
-	public int peek() {
-		return 0;
+	public T pop() {
+		T itemToPop = myTop.myItem;
+		myTop = myTop.myNext;
+		mySize--;
+		
+		return itemToPop;
+	}
+	
+	public T peek() {
+		T item = myTop.myItem;
+		return item;
 	}
 	
 	public int size() {
-		return 0;
+		return mySize;
 	}
 	
+	@Override
 	public String toString() {
-		String format = "[]";
-		return format;
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		
+		Node current = myTop;
+		T item = current.myItem;
+		sb.append(item);
+		current = current.myNext;
+		
+		while(current != null) {
+			item = current.myItem;
+			sb.append(", " + item);
+			current = current.myNext;
+		}
+		
+		sb.append("]");
+		
+		return sb.toString();
 	}
 }
