@@ -89,7 +89,7 @@ public class Burger {
 	}
 	
 	public void addCategory(String type) {
-		if (type.equals("Cheese")) {
+		if (type.equals("Cheese"))  {
 			
 		} else if (type.equals("Sauce")) {
 			
