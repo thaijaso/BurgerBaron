@@ -100,16 +100,11 @@ public class Burger {
 			}
 			
 			if (myPattyCount == 3) {	
-				
 				temp.push(item);
 				temp.push(myBurger.pop());	//add second patty to temp
-			
 			} else if (myPattyCount == 2) {					
-				
 				temp.push(item);					
-			
 			} else {						
-				
 				myBurger.push(item);
 			}
 			
@@ -117,6 +112,23 @@ public class Burger {
 			reStackBurger(myBurger, temp);
 		
 		} else if (type.equals("Sauce")) {
+			
+			while (myBurger.size() != 1) {
+				temp.push(item);
+				
+				if (item.equals("Bun")) {
+					temp.push("Mayonnaise");
+					temp.push("Baron Sause");
+				}
+				
+				item = myBurger.pop();
+			}
+			
+			temp.push(item);
+			temp.push("Mustard");
+			temp.push("Ketchup");
+			
+			reStackBurger(myBurger, temp);
 			
 		} else if (type.equals("Veggies")) {
 			
