@@ -4,10 +4,14 @@ public class Burger {
 	
 	private String myPatty;
 	
+	private int myPattyCount;
+	
 	private boolean myBurgerHasCheese;
 		
 	public Burger(boolean theWorks) {
+		myPattyCount = 1;
 		myPatty = "Beef";
+		
 		myBurger = new MyStack<String>();
 		myBurger.push("Bun");
 		
@@ -57,6 +61,7 @@ public class Burger {
 	}
 	
 	public void addPatty() {
+		myPattyCount++;
 		MyStack<String> temp = new MyStack<String>();
 		
 		String item = myBurger.pop();
@@ -80,22 +85,55 @@ public class Burger {
 			temp.push(myPatty);
 		}
 		
-		
-		
-		while(!temp.isEmpty()) {
-			item = temp.pop();
-			myBurger.push(item);
-		}
+		reStackBurger(myBurger, temp);
 	}
 	
 	public void addCategory(String type) {
+		MyStack<String> temp = new MyStack<String>();
+		String item = myBurger.pop();
+		
 		if (type.equals("Cheese"))  {
 			
+			while(!item.equals("Beef") && !item.equals("Chicken") && !item.equals("Veggie")) {
+				temp.push(item);
+				item = myBurger.pop();
+			}
+			
+			if (myPattyCount == 3) {	
+				
+				temp.push(item);
+				temp.push(myBurger.pop());	//add second patty to temp
+			
+			} else if (myPattyCount == 2) {					
+				
+				temp.push(item);					
+			
+			} else {						
+				
+				myBurger.push(item);
+			}
+			
+			addCheeseToTempStack(temp);
+			reStackBurger(myBurger, temp);
+		
 		} else if (type.equals("Sauce")) {
 			
 		} else if (type.equals("Veggies")) {
 			
 		}
+	}
+	
+	private void reStackBurger(MyStack<String> theBurger, MyStack<String> theTemp) {
+		while(!theTemp.isEmpty()) {
+			String item = theTemp.pop();
+			theBurger.push(item);
+		}
+	}
+	
+	private void addCheeseToTempStack(MyStack<String> theTemp) {
+		theTemp.push("Pepperjack");
+		theTemp.push("Mozzarella");
+		theTemp.push("Cheddar");
 	}
 	
 	public void removeCategory(String type) {
