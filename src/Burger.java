@@ -147,6 +147,26 @@ public class Burger {
 			myBurgerHasAllVeggies = true;
 			
 			temp.push("Pickle");
+			item = myBurger.pop();
+			
+			if (!myBurgerHasAllSauces) {
+				temp.push("Lettuce");
+				temp.push("Tomato");
+				temp.push("Onions");
+			}
+			
+			if (myPattyCount == 1) {
+				
+				while (!item.equals("Beef")) {
+					temp.push(item);
+					
+				}
+				
+			} else if (myPattyCount == 2) {
+				
+			} else {
+				
+			}
 			
 		}
 	}

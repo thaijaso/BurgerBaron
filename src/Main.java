@@ -1,7 +1,8 @@
 
 public class Main {
 	public static void main(String[] args) {
-		testBurger(); 
+		testMyStack();
+		//testBurger(); 
 	}
 	
 	public static void parseLine(String line) {
@@ -9,6 +10,15 @@ public class Main {
 	}
 	
 	public static void testMyStack() {
+		MyStack<Integer> intStack = new MyStack<Integer>();
+		intStack.push(3);
+		intStack.push(2);
+		intStack.push(1);
+		System.out.println(intStack);
+		intStack.pop();
+		intStack.pop();
+		intStack.pop();
+		System.out.println(intStack);
 		
 	}
 	

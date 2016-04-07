@@ -34,7 +34,10 @@ public class MyStack<T> {
 	}
 	
 	public T pop() {
+		Node current = myTop;
+		
 		T itemToPop = myTop.myItem;
+		
 		myTop = myTop.myNext;
 		mySize--;
 		
@@ -56,9 +59,13 @@ public class MyStack<T> {
 		sb.append("[");
 		
 		Node current = myTop;
-		T item = current.myItem;
-		sb.append(item);
-		current = current.myNext;
+		T item;
+		
+		if (current != null) {
+			item = current.myItem;
+			sb.append(item);
+			current = current.myNext;
+		}
 		
 		while(current != null) {
 			item = current.myItem;
