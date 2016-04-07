@@ -6,7 +6,11 @@ public class Burger {
 	
 	private int myPattyCount;
 	
-	private boolean myBurgerHasCheese;
+	private boolean myBurgerHasAllCheeses;
+	
+	private boolean myBurgerHasAllSauces;
+	
+	private boolean myBurgerHasAllVeggies;
 		
 	public Burger(boolean theWorks) {
 		myPattyCount = 1;
@@ -31,12 +35,16 @@ public class Burger {
 			myBurger.push("Bun");
 			myBurger.push("Pickle");
 			
-			myBurgerHasCheese = true;
+			myBurgerHasAllCheeses = true;
+			myBurgerHasAllSauces = true;
+			myBurgerHasAllVeggies = true;
 		} else {
 			myBurger.push(myPatty);
 			myBurger.push("Bun");
 			
-			myBurgerHasCheese = false;
+			myBurgerHasAllCheeses = false;
+			myBurgerHasAllSauces = false;
+			myBurgerHasAllVeggies = false;
 		}
 	}
 	
@@ -66,7 +74,7 @@ public class Burger {
 		
 		String item = myBurger.pop();
 		
-		if (myBurgerHasCheese) {
+		if (myBurgerHasAllCheeses) {
 			//leave cheese on burger, add extra patty to temp to get cheese in between patties?
 			while (!item.equals("Cheddar") && !item.equals("Mozzarella") && !item.equals("Pepperjack")) {
 				temp.push(item);
@@ -94,6 +102,8 @@ public class Burger {
 		
 		if (type.equals("Cheese"))  {
 			
+			myBurgerHasAllCheeses = true;
+			
 			while(!item.equals("Beef") && !item.equals("Chicken") && !item.equals("Veggie")) {
 				temp.push(item);
 				item = myBurger.pop();
@@ -113,6 +123,8 @@ public class Burger {
 		
 		} else if (type.equals("Sauce")) {
 			
+			myBurgerHasAllSauces = true;
+			
 			while (myBurger.size() != 1) {
 				temp.push(item);
 				
@@ -131,6 +143,10 @@ public class Burger {
 			reStackBurger(myBurger, temp);
 			
 		} else if (type.equals("Veggies")) {
+			
+			myBurgerHasAllVeggies = true;
+			
+			temp.push("Pickle");
 			
 		}
 	}
