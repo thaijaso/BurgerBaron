@@ -6,7 +6,7 @@ public class Burger {
 	
 	private int myPattyCount;
 	
-	private boolean myBurgerHasAllCheeses;
+	private boolean myBurgerHasAllCheese;
 	
 	private boolean myBurgerHasAllSauces;
 	
@@ -35,14 +35,14 @@ public class Burger {
 			myBurger.push("Bun");
 			myBurger.push("Pickle");
 			
-			myBurgerHasAllCheeses = true;
+			myBurgerHasAllCheese = true;
 			myBurgerHasAllSauces = true;
 			myBurgerHasAllVeggies = true;
 		} else {
 			myBurger.push(myPatty);
 			myBurger.push("Bun");
 			
-			myBurgerHasAllCheeses = false;
+			myBurgerHasAllCheese = false;
 			myBurgerHasAllSauces = false;
 			myBurgerHasAllVeggies = false;
 		}
@@ -74,7 +74,7 @@ public class Burger {
 		
 		String item = myBurger.pop();
 		
-		if (myBurgerHasAllCheeses) {
+		if (myBurgerHasAllCheese) {
 			//leave cheese on burger, add extra patty to temp to get cheese in between patties?
 			while (!item.equals("Cheddar") && !item.equals("Mozzarella") && !item.equals("Pepperjack")) {
 				temp.push(item);
@@ -102,7 +102,7 @@ public class Burger {
 		
 		if (type.equals("Cheese"))  {
 			
-			myBurgerHasAllCheeses = true;
+			myBurgerHasAllCheese = true;
 			
 			while(!item.equals("Beef") && !item.equals("Chicken") && !item.equals("Veggie")) {
 				temp.push(item);
@@ -121,7 +121,7 @@ public class Burger {
 			addCheeseToTempStack(temp);
 			reStackBurger(myBurger, temp);
 		
-		} else if (type.equals("Sauce")) {
+		} else if (type.equals("Sauces")) {
 			
 			myBurgerHasAllSauces = true;
 			
@@ -147,26 +147,59 @@ public class Burger {
 			myBurgerHasAllVeggies = true;
 			
 			temp.push("Pickle");
-			item = myBurger.pop();
+			temp.push(item);		//take off bun and put in temp
 			
-			if (!myBurgerHasAllSauces) {
-				temp.push("Lettuce");
-				temp.push("Tomato");
-				temp.push("Onions");
-			}
+			if (myBurgerHasAllSauces) {
+				temp.push(myBurger.pop());		//Mayo
+				temp.push(myBurger.pop());		//Baron Sauce
+			} 
+				
+			temp.push("Lettuce");
+			temp.push("Tomato");
+			temp.push("Onions");
+			
+			
 			
 			if (myPattyCount == 1) {
 				
-				while (!item.equals("Beef")) {
-					temp.push(item);
-					
+				if (myBurgerHasAllCheese) {
+					temp.push(myBurger.pop());
+					temp.push(myBurger.pop());
+					temp.push(myBurger.pop());
 				}
+				
+				item = myBurger.pop();
+				temp.push(item);
+				temp.push("Mushrooms");
 				
 			} else if (myPattyCount == 2) {
 				
+				if (myBurgerHasAllCheese) {
+					temp.push(myBurger.pop());		//patty
+					temp.push(myBurger.pop());
+					temp.push(myBurger.pop());
+					temp.push(myBurger.pop());
+				}
+					
+				temp.push(myBurger.pop());			       //patty
+				temp.push(myBurger.pop());
+				temp.push("Mushrooms");
 			} else {
 				
+				if (myBurgerHasAllCheese) {
+					temp.push(myBurger.pop());		//patty
+					temp.push(myBurger.pop());
+					temp.push(myBurger.pop());
+					temp.push(myBurger.pop());
+				}
+				
+				temp.push(myBurger.pop());
+				temp.push(myBurger.pop());
+				temp.push(myBurger.pop());
+				temp.push("Mushrooms");
 			}
+			
+			reStackBurger(myBurger, temp);
 			
 		}
 	}
