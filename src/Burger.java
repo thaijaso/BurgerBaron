@@ -30,7 +30,7 @@ public class Burger {
 			myBurger.push("Onions");
 			myBurger.push("Tomato");
 			myBurger.push("Lettuce");
-			myBurger.push("Baron Sauce");
+			myBurger.push("Baron-Sauce");
 			myBurger.push("Mayonnaise");
 			myBurger.push("Bun");
 			myBurger.push("Pickle");
@@ -121,7 +121,7 @@ public class Burger {
 			addCheeseToTempStack(temp);
 			reStackBurger(myBurger, temp);
 		
-		} else if (type.equals("Sauces")) {
+		} else if (type.equals("Sauce")) {
 			
 			myBurgerHasAllSauces = true;
 			
@@ -130,7 +130,7 @@ public class Burger {
 				
 				if (item.equals("Bun")) {
 					temp.push("Mayonnaise");
-					temp.push("Baron Sause");
+					temp.push("Baron-Sauce");
 				}
 				
 				item = myBurger.pop();
@@ -151,7 +151,7 @@ public class Burger {
 			
 			if (myBurgerHasAllSauces) {
 				temp.push(myBurger.pop());		//Mayo
-				temp.push(myBurger.pop());		//Baron Sauce
+				temp.push(myBurger.pop());		//Baron-Sauce
 			} 
 				
 			temp.push("Lettuce");
@@ -181,7 +181,7 @@ public class Burger {
 					temp.push(myBurger.pop());
 				}
 					
-				temp.push(myBurger.pop());			       //patty
+				temp.push(myBurger.pop());			//patty
 				temp.push(myBurger.pop());
 				temp.push("Mushrooms");
 			} else {
@@ -218,15 +218,121 @@ public class Burger {
 	}
 	
 	public void removeCategory(String type) {
+		MyStack<String> temp = new MyStack<String>();
+		
+		
+		
+		while (!myBurger.isEmpty()) {
+			
+			String item = myBurger.peek();
+			
+			if (type.equals("Cheese")) {
+				
+				myBurgerHasAllCheese = false;
+				
+				if (item.equals("Pepperjack") || item.equals("Mozzarella") || item.equals("Cheddar")) {
+					myBurger.pop();
+				} else {
+					temp.push(myBurger.pop());
+				}
+				
+			} else if (type.equals("Sauce")) {
+				
+				myBurgerHasAllSauces = false;
+				
+				if (item.equals("Mayonnaise") || item.equals("Baron-Sauce") 
+						|| item.equals("Mustard") || item.equals("Ketchup")) {
+					
+					myBurger.pop();
+				
+				} else {
+					temp.push(myBurger.pop());
+				}
+				
+			} else if (type.equals("Veggies")) {
+				
+				myBurgerHasAllVeggies = false;
+				
+				if (item.equals("Pickle") || item.equals("Lettuce") || item.equals("Mushrooms")
+						|| item.equals("Tomato") || item.equals("Onions")) {
+					
+					myBurger.pop();
+					
+				} else {
+					temp.push(myBurger.pop());
+				}
+			}
+		}
+		
+		reStackBurger(myBurger, temp);
 		
 	}
 	
 	public void addIngredient(String type) {
 		
+		String target = type;
+		
+		MyStack<String> baronRecipe = new MyStack<String>();
+		baronRecipe.push("Bun");
+		baronRecipe.push("Ketchup");
+		baronRecipe.push("Mustard");
+		baronRecipe.push("Mushrooms");
+		baronRecipe.push(myPatty);
+		baronRecipe.push("Cheddar");
+		baronRecipe.push("Mozzarella");
+		baronRecipe.push("Pepperjack");
+		
+		if (myPattyCount == 2) {
+			baronRecipe.push(myPatty);
+		} else if (myPattyCount == 3) {
+			baronRecipe.push(myPatty);
+			baronRecipe.push(myPatty);
+		}
+		
+		baronRecipe.push("Onions");
+		baronRecipe.push("Tomato");
+		baronRecipe.push("Lettuce");
+		baronRecipe.push("Baron-Sauce");
+		baronRecipe.push("Mayonnaise");
+		baronRecipe.push("Bun");
+		baronRecipe.push("Pickle");
+		
+		MyStack<String> recipeStack = new MyStack<String>();	
+		MyStack<String> temp = new MyStack<String>();
+		
+		String recipeItem = baronRecipe.peek();
+		String burgerItem = myBurger.peek();
+		
+		while (!recipeItem.equals(target)) {
+			
+			if (recipeItem.equals(burgerItem)) {
+				recipeStack.push(baronRecipe.pop());
+				temp.push(myBurger.pop());
+				recipeItem = baronRecipe.peek();
+				burgerItem = myBurger.peek();	
+			} else {
+				recipeStack.push(baronRecipe.pop());
+				recipeItem = baronRecipe.peek();
+			}
+		}
+		
+		temp.push(target);
+		reStackBurger(myBurger, temp);
+		
 	}
 	
 	public void removeIngredient(String type) {
+		MyStack<String> temp = new MyStack<String>();
+		String target = type;
+		String item = myBurger.peek();
 		
+		while(!item.equals(target)) {
+			temp.push(myBurger.pop());
+			item = myBurger.peek();
+		}
+		
+		myBurger.pop();
+		reStackBurger(myBurger, temp);	
 	}
 	
 	@Override
